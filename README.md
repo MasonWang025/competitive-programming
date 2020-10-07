@@ -1,3 +1,3 @@
-# stanford-algorithms
+# usaco-guide-solutions
 
-Code implementations of algorithms covered in the Stanford Algorithms Specialization.
+My Java implementations of algorithms covered in [usaco.guide](https://usaco.guide).
