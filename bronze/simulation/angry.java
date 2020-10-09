@@ -3,7 +3,7 @@ package bronze.simulation;
 import java.util.*;
 import java.io.*;
 
-public class blocks {
+public class angry {
     static class InputReader {
         BufferedReader reader;
         StringTokenizer tokenizer;
@@ -37,31 +37,18 @@ public class blocks {
         }
     }
 
+    static int[] bales;
+
     public static void main(String[] args) throws IOException {
         InputReader r = new InputReader();
         PrintWriter pw = new PrintWriter(new FileWriter("angry.out"));
 
         int N = r.nextInt();
 
-        int[] total = new int[26];
+        bales = new int[N];
 
-        for (int i = 0; i < N; i++) {
-            String f = r.next();
-            int[] front = new int[26];
-            for (int j = 0; j < f.length(); j++)
-                front[f.charAt(j) - 97]++;
-
-            String b = r.next();
-            int[] back = new int[26];
-            for (int j = 0; j < b.length(); j++)
-                back[b.charAt(j) - 97]++;
-
-            for (int j = 0; j < 26; j++)
-                total[j] += Math.max(front[j], back[j]);
-        }
-
-        for (int i = 0; i < 26; i++)
-            pw.println(total[i]);
+        for (int i = 0; i < N; i++)
+            bales[i] = r.nextInt();
 
         pw.close(); // flushes the output once printing is done
     }
