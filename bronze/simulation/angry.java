@@ -50,6 +50,41 @@ public class angry {
         for (int i = 0; i < N; i++)
             bales[i] = r.nextInt();
 
+        Arrays.sort(bales);
+
+        int maxExploded = 0;
+        for (int i = 0; i < N; i++) {
+            int leftmostIndex = getExplosionIndex(i, true);
+            int rightmostIndex = getExplosionIndex(i, false);
+            int numExploded = rightmostIndex - leftmostIndex + 1;
+
+            if (numExploded > maxExploded)
+                maxExploded = numExploded;
+        }
+
+        pw.println(maxExploded);
+
         pw.close(); // flushes the output once printing is done
+    }
+
+    public static int getExplosionIndex(int startIndex, boolean goLeft) {
+        int lastExplosionIndex = startIndex;
+        int radius = 1;
+
+        while (lastExplosionIndex > 0 && lastExplosionIndex < bales.length - 1) {
+            int direction = goLeft ? -1 : 1;
+
+            int nextIndex = lastExplosionIndex;
+            while ((nextIndex + direction >= 0 && nextIndex + direction < bales.length) && (Math.abs(bales[lastExplosionIndex] - bales[nextIndex + direction]) <= radius))
+                nextIndex += direction;
+
+            if (nextIndex == lastExplosionIndex)
+                break;
+
+            lastExplosionIndex = nextIndex;
+            radius++;
+        }
+
+        return lastExplosionIndex;
     }
 }
