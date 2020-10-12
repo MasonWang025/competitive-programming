@@ -42,83 +42,48 @@ public class measurement {
         PrintWriter pw = new PrintWriter(new FileWriter("measurement.out"));
         int N = r.nextInt();
 
-        Update[] updates = new Update[N];
-        ArrayList<Cow> cows = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            int day = r.nextInt();
-            String name = r.next();
-            int amount = r.nextInt();
-
-            // does cow exist
-            Cow cowToUpdate = null;
-            for (Cow c : cows) {
-                if (c.name.equals(name))
-                    cowToUpdate = c;
-            }
-
-            if (cowToUpdate == null) {
-                cowToUpdate = new Cow(name);
-                cows.add(cowToUpdate);
-            }
-
-            updates[i] = new Update(day, cowToUpdate, amount);
-        }
-
-        Arrays.sort(updates);
-
+        int bessie = 7, elsie = 7, mildred = 7;
         int max = 7;
-        int numDaysToChange = 0;
-        int lastDayChanged = -1;
-        for (int i = 0; i < updates.length; i++) {
-            int prevAmt = updates[i].cowToUpdate.milk;
-            int newAmt = prevAmt + updates[i].amount;
-            updates[i].cowToUpdate.milk = newAmt;
+        boolean b = true, e = true, m = true;
+        int[] day = new int[N];
+        String[] cow = new String[N];
+        int[] change = new int[N];
 
-            boolean needToChange = false;
-            if (prevAmt == max && newAmt != max)
-                needToChange = true;
-            if (newAmt > max) {
-                max = newAmt;
-                needToChange = true;
-            }
-            if (newAmt == max && prevAmt != max)
-                needToChange = true;
+        for (int i = 0; i < N; i++) {
+            day[i] = r.nextInt();
+            cow[i] = r.next();
+            change[i] = r.nextInt();
+        }
 
-            if (lastDayChanged != updates[i].day && needToChange) {
-                lastDayChanged = updates[i].day;
-                numDaysToChange++;
+        int dayChanges = 0;
+        for (int d = 1; d <= 100; d++) {
+            boolean currDayChanged = false;
+            for (int i = 0; i < N; i++) {
+                if (day[i] == d) {
+                    if (cow[i].equals("Bessie"))
+                        bessie += change[i];
+                    else if (cow[i].equals("Elsie"))
+                        elsie += change[i];
+                    else
+                        mildred += change[i];
+
+                    int newMax = Math.max(Math.max(bessie, elsie), mildred);
+                    boolean bNext = bessie == newMax, eNext = elsie == newMax, mNext = mildred == newMax;
+
+                    if (!currDayChanged && b != bNext || e != eNext || m != mNext) {
+                        currDayChanged = true;
+                        dayChanges++;
+                    }
+
+                    b = bNext;
+                    e = eNext;
+                    m = mNext;
+                }
             }
         }
 
-        pw.println(numDaysToChange);
+        pw.println(dayChanges);
 
         pw.close(); // flushes the output once printing is done
-    }
-
-    static class Cow {
-        String name;
-        int milk;
-
-        Cow (String name) {
-            this.name = name;
-            this.milk = 7;
-        }
-    }
-
-    static class Update implements Comparable<Update> {
-        int day;
-        Cow cowToUpdate;
-        int amount;
-
-        Update(int day, Cow cowToUpdate, int amount) {
-            this.day = day;
-            this.cowToUpdate = cowToUpdate;
-            this.amount = amount;
-        }
-
-        @Override
-        public int compareTo(Update u) {
-            return Integer.compare(this.day, u.day);
-        }
     }
 }
