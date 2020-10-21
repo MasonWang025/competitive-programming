@@ -1,4 +1,4 @@
-package bronze.completesearch;
+//package bronze.completesearch;
 
 import java.io.*;
 import java.util.*;
@@ -60,8 +60,7 @@ public class tracing {
         for (int c = 0; c < n; c++) {
             // c is patient zero
             for (int k = 0; k <= t; k++) {
-                int[] canInfect = new int[n]; // keep track of how many more a cow can infect
-                canInfect[c] = k;
+                int[] num_handshakes = new int[101]; // keep track of how many more a cow can infect
                 boolean[] infected = new boolean[n]; // keep track of who is infected
                 infected[c] = true;
 
@@ -72,20 +71,10 @@ public class tracing {
                     // x and y shake
                     int x = events[e][0] - 1;
                     int y = events[e][1] - 1;
-                    if (infected[x] && canInfect[x] > 0) {
-                        canInfect[x]--;
-                        if (!infected[y]) {
-                            canInfect[y] = k;
-                            infected[y] = true;
-                        }
-                    }
-                    if (infected[y] && canInfect[y] > 0) {
-                        canInfect[y]--;
-                        if (!infected[x]) {
-                            canInfect[x] = k;
-                            infected[x] = true;
-                        }
-                    }
+                    if (infected[x]) num_handshakes[x]++;
+                    if (infected[y]) num_handshakes[y]++;
+                    if (num_handshakes[x] <= k && infected[x]) infected[y] = true;
+                    if (num_handshakes[y] <= k && infected[y]) infected[x] = true;
                 }
 
                 boolean validSimulation = true;
