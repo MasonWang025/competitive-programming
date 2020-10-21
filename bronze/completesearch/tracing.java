@@ -1,4 +1,4 @@
-//package bronze.completesearch;
+package bronze.completesearch;
 
 import java.io.*;
 import java.util.*;
