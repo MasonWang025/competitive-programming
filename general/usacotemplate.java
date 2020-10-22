@@ -40,7 +40,7 @@ public class usacotemplate {
     public static void main(String[] args) throws IOException {
         InputReader r = new InputReader();
         PrintWriter pw = new PrintWriter(new FileWriter("problemname.out"));
-        int N = r.nextInt();
+        int n = r.nextInt();
 
         pw.close(); // flushes the output once printing is done
     }
