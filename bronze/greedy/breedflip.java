@@ -1,4 +1,4 @@
-//package bronze.greedy;
+package bronze.greedy;
 
 import java.util.*;
 import java.io.*;
