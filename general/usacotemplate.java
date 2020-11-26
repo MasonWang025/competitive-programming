@@ -9,7 +9,7 @@ public class usacotemplate {
         StringTokenizer tokenizer;
 
         public InputReader() throws FileNotFoundException {
-            reader = new BufferedReader(new FileReader("problemname.in"));
+            reader = new BufferedReader(new FileReader("usacotemplate.in"));
             tokenizer = null;
         }
 
@@ -39,7 +39,8 @@ public class usacotemplate {
 
     public static void main(String[] args) throws IOException {
         InputReader r = new InputReader();
-        PrintWriter pw = new PrintWriter(new FileWriter("problemname.out"));
+        PrintWriter pw = new PrintWriter(new FileWriter("usacotemplate.out"));
+
         int n = r.nextInt();
 
         pw.close(); // flushes the output once printing is done
