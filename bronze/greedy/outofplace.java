@@ -40,18 +40,22 @@ public class outofplace {
     public static void main(String[] args) throws IOException {
         InputReader r = new InputReader();
         PrintWriter pw = new PrintWriter(new FileWriter("outofplace.out"));
-        int n = r.nextInt();
-        int[] order = new int[n];
-        for (int i = 0; i < n; i++)
-            order[i] = r.nextInt();
 
-        int index = n - 1;
-        for (int i = 0; i < n - 1; i++) {
-            if (order[i] > order[i + 1]) {
-                index = i;
-                break;
-            }
-        }
+        int n = r.nextInt();
+        int[] heights = new int[n];
+        int[] sorted = new int[n];
+
+        for (int i = 0; i < n; i++)
+            sorted[i] = heights[i] = r.nextInt();
+
+        Arrays.sort(sorted);
+
+        int diff = 0;
+        for (int i = 0; i < n; i++)
+            if (sorted[i] != heights[i])
+                diff++;
+
+        pw.println(Math.max(0, diff - 1));
 
         pw.close(); // flushes the output once printing is done
     }
