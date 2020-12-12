@@ -41,7 +41,7 @@ public class usacotemplate {
         InputReader r = new InputReader();
         PrintWriter pw = new PrintWriter(new FileWriter("usacotemplate.out"));
 
-        int N = r.nextInt();
+        final int N = r.nextInt();
 
         pw.close(); // flushes the output once printing is done
     }
